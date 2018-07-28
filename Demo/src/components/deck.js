@@ -14,6 +14,8 @@ class Deck {
         this.AddCard(suit, value);
       });
     });
+    console.log('The following deck was created: ');
+    this.ShowContents();
   }
 
   AddCard(suit, faceValue) {
@@ -45,11 +47,8 @@ class Deck {
   }
 
   ShowContents() {
-  //  this.cards.forEach((card) => {
-  //    console.log(`${card.value} of ${card.suit}`);
-  //  });
-
-    console.log(this.cards.map(e => `${e.value} of ${e.suit}`).join(', '));
+  //  console.log(this.cards.map(e => `${e.value} of ${e.suit}`).join(', '));
+    console.log(`${this.cards.map(e => `${e.icon}`).join(', ')}\n`);
   }
 }
 

@@ -13,7 +13,7 @@ class PlayingCardClient {
 
   GetUserInput() {
     this.numPlayers = readlineSync.question('How many players? ');
-    console.log(`${this.numPlayers} player(s) selected`);
+    console.log(`${this.numPlayers} player(s) selected\n`);
   }
 
   CreatePlayers(numPlayers) {
@@ -37,7 +37,7 @@ class PlayingCardClient {
 
   ShowAllHands() {
     this.players.forEach((player) => {
-      console.log(`${player.name}'s hand: ${player.hand.map(e => `${e.icon}`).join(', ')}`);
+      console.log(`${player.name}'s hand:\n${player.hand.map(e => `${e.icon}`).join(', ')}`);
     });
   }
 }
