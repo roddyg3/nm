@@ -5,3 +5,9 @@
 // deal equal cards to each player
 // display results of deal
 
+const PlayingCardClient = require('./client/playingCard.client');
+
+const cardClient = new PlayingCardClient();
+cardClient.GetUserInput();
+cardClient.SetUpGame();
+cardClient.ShowAllHands();
