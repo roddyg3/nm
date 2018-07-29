@@ -21,7 +21,7 @@ class PlayingCardClient {
     this.SetUpDeck();
     this.CreatePlayers(this.numPlayers);
     this.ShuffleAndDeal(this.shuffleCount, this.players);
-    this.ShowPlayerHands();
+    this.ShowPlayerHands(this.players);
   }
 
   GetPlayerInput() {
@@ -53,7 +53,7 @@ class PlayingCardClient {
       console.error('ERROR: Game requires at least one player!');
     } else if (this.numPlayers > this.playingDeck.cards.length) {
       console.error(`ERROR: There are ${this.numPlayers} players but only ${this.playingDeck.cards.length} cards`);
-    } else if (parseInt(this.numPlayers, 10)) {
+    } else if (Number.isNaN(parseInt(this.numPlayers, 10))) {
       console.error('ERROR: Invalid value for number of players');
     }
   }

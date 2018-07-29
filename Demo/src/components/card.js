@@ -12,7 +12,7 @@ class PlayingCard {
   }
 
   set icon(s) {
-    return this.s;
+    this.suit = s;
   }
 
   /**
