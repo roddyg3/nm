@@ -14,14 +14,11 @@ class Deck {
     ];
     this.cards = [];
     this.shuffleOrder = [];
+    this.deckSize = this.getDeckSize();
   }
 
-  get deckSize() {
+  getDeckSize() {
     return this.cards.length;
-  }
-
-  set deckSize(newValue) {
-    this.deckSize = newValue;
   }
 
   /**

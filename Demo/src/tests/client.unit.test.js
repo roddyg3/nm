@@ -1,6 +1,7 @@
 const readlineSync = require('readline-sync');
 const console = require('console');
 const PlayingCardClient = require('./../client/playingCard.client');
+const testData = require('./testData');
 
 describe('PlayingCardClient Unit Tests', () => {
   let cardClient = {};
@@ -30,7 +31,7 @@ describe('PlayingCardClient Unit Tests', () => {
 
   describe('GetPlayerInput()', () => {
     beforeEach(() => {
-      readlineSync.questionInt = jest.fn().mockReturnValue(4);
+      readlineSync.questionInt = jest.fn().mockReturnValue(testData.numPlayers);
       console.log = jest.fn();
       cardClient.GetPlayerInput();
     });
@@ -40,19 +41,19 @@ describe('PlayingCardClient Unit Tests', () => {
     });
 
     test('Confirms input received', () => {
-      expect(console.log).toHaveBeenCalledWith('4 player(s) selected\n');
+      expect(console.log).toHaveBeenCalledWith(`${testData.numPlayers} player(s) selected\n`);
     });
 
     test('Stores input in numPlayers', () => {
-      expect(readlineSync.questionInt).toHaveLastReturnedWith(4);
-      expect(cardClient.numPlayers).toEqual(4);
+      expect(readlineSync.questionInt).toHaveLastReturnedWith(testData.numPlayers);
+      expect(cardClient.numPlayers).toEqual(testData.numPlayers);
     });
   });
 
   describe('CreatePlayers()', () => {
     test('Creates specified number of Players', () => {
-      cardClient.CreatePlayers(2);
-      expect(cardClient.players.length).toEqual(2);
+      cardClient.CreatePlayers(testData.numPlayers);
+      expect(cardClient.players.length).toEqual(testData.numPlayers);
     });
 
     test('Does nothing if number < 1', () => {
@@ -81,7 +82,7 @@ describe('PlayingCardClient Unit Tests', () => {
   describe('ShuffleAndDeal()', () => {
     beforeEach(() => {
       cardClient.SetUpDeck();
-      cardClient.CreatePlayers(2);
+      cardClient.CreatePlayers(testData.numPlayers);
     });
 
     test('Shuffles the deck the specified number of times', () => {
@@ -140,12 +141,15 @@ describe('PlayingCardClient Unit Tests', () => {
     test('Displays players\' hands', () => {
       cardClient.SetUpDeck();
       const expectedCard = cardClient.playingDeck.cards[0].icon;
-      cardClient.CreatePlayers(2);
+      cardClient.CreatePlayers(testData.numPlayers);
       cardClient.ShuffleAndDeal(1, cardClient.players);
       PlayingCardClient.ShowPlayerHands(cardClient.players);
       expect(console.log).toHaveBeenCalledWith(expect.stringContaining(expectedCard));
-      expect(console.log).toHaveBeenCalledWith(expect.stringContaining(cardClient.players[0].name));
-      expect(console.log).toHaveBeenCalledWith(expect.stringContaining(cardClient.players[1].name));
+      for (let i = 0; i < testData.numPlayers; i += 1) {
+        expect(console.log).toHaveBeenCalledWith(
+          expect.stringContaining(cardClient.players[i].name),
+        );
+      }
     });
 
     test('Displays correct message if hand is empty', () => {

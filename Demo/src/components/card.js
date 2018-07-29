@@ -5,14 +5,11 @@ class PlayingCard {
   constructor(suit, value) {
     this.suit = suit;
     this.value = value;
+    this.icon = this.getIcon();
   }
 
-  get icon() {
+  getIcon() {
     return `${this.MapValue(this.value) + this.MapSuit(this.suit)}`;
-  }
-
-  set icon(s) {
-    this.suit = s;
   }
 
   /**
