@@ -1,3 +1,6 @@
+/**
+ * PlayingCard class to represent and store card details
+ */
 class PlayingCard {
   constructor(suit, value) {
     this.suit = suit;
@@ -12,6 +15,9 @@ class PlayingCard {
     return this.s;
   }
 
+  /**
+   * Map suit to its Unicode symbol
+   */
   MapSuit(suit) {
     switch (suit) {
       case 'Clubs':
@@ -27,6 +33,9 @@ class PlayingCard {
     }
   }
 
+  /**
+   * Map alpha face value to its abbreviation
+   */
   MapValue(value) {
     switch (value) {
       case 'Jack':

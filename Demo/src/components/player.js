@@ -1,5 +1,6 @@
-const console = require('console');
-
+/**
+ * Simple class to store playerName and cards in hand
+ */
 class Player {
   constructor(playerName) {
     this.name = playerName;
@@ -8,13 +9,6 @@ class Player {
 
   AddToHand(playingCard) {
     this.hand.push(playingCard);
-  }
-
-  ShowHand() {
-    if (this.hand.length === 0) {
-      console.log(`${this.playerName}'s hand is empty.`);
-    }
-    this.hand.forEach();
   }
 }
 
