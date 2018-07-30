@@ -7,4 +7,4 @@ Card shuffling is performed by simulating the ripple shuffle method, following t
 
 Unit tests utilize Jest.
 
-This is my first Node.js application. Please enjoy! :)
+This is my first Node.js project. Please enjoy! :)
