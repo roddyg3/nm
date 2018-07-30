@@ -1,0 +1,29 @@
+unit tests
+- deck is created with complete set of cards
+- shuffling?
+
+requirements
+- handle number of users is < 1
+- handle number of users is > 52
+- deal to players until all cards run out
+- show players hands
+- shuffle 7 times
+
+nice to have
+- different shuffle options user can select
+- GUI, or at least ASCII representation of cards / players
+- allow user to input number of shuffles?
+- deal equally to players option (number of users receive equal amount of
+  cards, remainder is kept in deck)
+- RobotJS to unit test user input
+
+Gilbert–Shannon–Reeds model
+An alternative description can be based on a property of the model,
+that it generates a permutation of the initial deck in which each card
+is equally likely to have come from the first or the second packet.
+To generate a random permutation according to this model, begin by flipping
+a fair coin n times, to determine for each position of the shuffled deck
+whether it comes from the first packet or the second packet. Then split
+into two packets whose sizes are the number of tails and the number of heads
+flipped, and use the same coin flip sequence to determine from which packet
+to pull each card of the shuffled deck.

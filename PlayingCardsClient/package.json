@@ -1,0 +1,25 @@
+{
+  "name": "playingcards",
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
+  "version": "1.0.0",
+  "description": "Deal playing cards to a specified number of users",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "test": "jest"
+  },
+  "author": "Roddy Ganiard",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "jest": "^23.4.1"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.9"
+  }
+}
