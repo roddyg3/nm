@@ -12,12 +12,12 @@ describe('PlayingCardClient Unit Tests', () => {
 
   describe('SetUpGame()', () => {
     test('Calls all expected methods', () => {
+      cardClient.SetUpDeck = jest.fn();
       cardClient.GetPlayerInput = jest.fn();
       cardClient.CheckForInvalidPlayers = jest.fn();
-      cardClient.SetUpDeck = jest.fn();
       cardClient.CreatePlayers = jest.fn();
       cardClient.ShuffleAndDeal = jest.fn();
-      cardClient.ShowPlayerHands = jest.fn();
+      cardClient.ShowPlayersHands = jest.fn();
       cardClient.SetUpGame();
       expect(cardClient.GetPlayerInput).toHaveBeenCalled();
       expect(cardClient.CheckForInvalidPlayers).toHaveBeenCalled();
@@ -25,26 +25,28 @@ describe('PlayingCardClient Unit Tests', () => {
       expect(cardClient.CreatePlayers).toHaveBeenCalledWith(cardClient.numPlayers);
       expect(cardClient.ShuffleAndDeal)
         .toHaveBeenCalledWith(cardClient.shuffleCount, cardClient.players);
-      expect(cardClient.ShowPlayerHands).toHaveBeenCalledWith(cardClient.players);
+      expect(cardClient.ShowPlayersHands).toHaveBeenCalledWith();
     });
   });
 
   describe('GetPlayerInput()', () => {
     beforeEach(() => {
       readlineSync.questionInt = jest.fn().mockReturnValue(testData.numPlayers);
-      console.log = jest.fn();
-      cardClient.GetPlayerInput();
     });
 
     test('Prompts user for number of players', () => {
+      cardClient.GetPlayerInput();
       expect(readlineSync.questionInt).toHaveBeenCalledWith('How many players? ');
     });
 
     test('Confirms input received', () => {
+      console.log = jest.fn();
+      cardClient.GetPlayerInput();
       expect(console.log).toHaveBeenCalledWith(`${testData.numPlayers} player(s) selected\n`);
     });
 
     test('Stores input in numPlayers', () => {
+      cardClient.GetPlayerInput();
       expect(readlineSync.questionInt).toHaveLastReturnedWith(testData.numPlayers);
       expect(cardClient.numPlayers).toEqual(testData.numPlayers);
     });
@@ -133,7 +135,7 @@ describe('PlayingCardClient Unit Tests', () => {
     });
   });
 
-  describe('ShowPlayerHands()', () => {
+  describe('ShowPlayersHands()', () => {
     beforeEach(() => {
       console.log = jest.fn();
     });
@@ -143,7 +145,7 @@ describe('PlayingCardClient Unit Tests', () => {
       const expectedCard = cardClient.playingDeck.cards[0].icon;
       cardClient.CreatePlayers(testData.numPlayers);
       cardClient.ShuffleAndDeal(1, cardClient.players);
-      PlayingCardClient.ShowPlayerHands(cardClient.players);
+      cardClient.ShowPlayersHands();
       expect(console.log).toHaveBeenCalledWith(expect.stringContaining(expectedCard));
       for (let i = 0; i < testData.numPlayers; i += 1) {
         expect(console.log).toHaveBeenCalledWith(
@@ -154,8 +156,8 @@ describe('PlayingCardClient Unit Tests', () => {
 
     test('Displays correct message if hand is empty', () => {
       cardClient.CreatePlayers(1);
-      PlayingCardClient.ShowPlayerHands(cardClient.players);
-      expect(console.log).toHaveBeenCalledWith('Player 1\'s hand is empty!');
+      cardClient.ShowPlayersHands();
+      expect(console.log).toHaveBeenLastCalledWith('Player 1\'s hand is empty!');
     });
   });
 });

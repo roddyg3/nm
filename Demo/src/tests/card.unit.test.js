@@ -3,11 +3,12 @@ const testData = require('./testData');
 
 describe('PlayingCard Unit Tests', () => {
   let testCard = {};
-  let expected = {};
+  let defaultTest = {};
+  const [expected] = testData.sets.filter(t => t.name === 'PlayingCard');
 
   beforeEach(() => {
-    [expected] = testData.sets.filter(t => t.name === 'PlayingCard');
     testCard = new PlayingCard(expected.model.suit, expected.model.value);
+    defaultTest = new PlayingCard(expected.default.suit, expected.default.value);
   });
 
   describe('Constructor', () => {
@@ -24,7 +25,6 @@ describe('PlayingCard Unit Tests', () => {
     });
 
     test('Default suit case is handled', () => {
-      const defaultTest = new PlayingCard(expected.default.suit, expected.default.value);
       expect(defaultTest.MapSuit()).toEqual(expected.default.suit);
     });
   });
@@ -35,14 +35,16 @@ describe('PlayingCard Unit Tests', () => {
     });
 
     test('Default value case is handled', () => {
-      const defaultTest = new PlayingCard(expected.default.suit, expected.default.value);
       expect(defaultTest.MapValue()).toEqual(expected.default.value);
     });
   });
 
   describe('getIcon', () => {
-    test('Returns expected value', () => {
+    test('Returns expected result for mapped values', () => {
       expect(testCard.icon).toEqual(expected.model.icon);
+    });
+    test('Returns expected result for unmapped values', () => {
+      expect(defaultTest.icon).toEqual(`${defaultTest.value}${defaultTest.suit}`);
     });
   });
 });

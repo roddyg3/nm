@@ -14,7 +14,6 @@ class Deck {
     ];
     this.cards = [];
     this.shuffleOrder = [];
-    this.deckSize = this.getDeckSize();
   }
 
   getDeckSize() {
@@ -43,16 +42,20 @@ class Deck {
 
   /**
    * Riffle shuffle technique that implements Gilbert–Shannon–Reeds model
-   * 1. Determine packet sizes for deck-splitting
-   * 2. Split cards into two parts using shuffleOrder counts
-   * 3. Reassemble deck from left and right packets using shuffleOrder
+   * 1. Set value ('left' or 'right') for each card in deck
+   * 2. Determine packet sizes for deck-splitting based on value subtotals
+   * 3. Split cards into two parts using shuffleOrder counts
+   * 4. Reassemble deck from left and right packets using shuffleOrder
    */
   RiffleShuffle() {
-    this.SetShuffleOrder(this.deckSize);
+    this.SetShuffleOrder(this.getDeckSize());
+
     const leftPacketSize = this.shuffleOrder.filter(l => l === 'left').length;
     const rightPacketSize = this.shuffleOrder.filter(r => r === 'right').length;
+
     const leftPacket = this.cards.splice(0, leftPacketSize);
     const rightPacket = this.cards.splice(0, rightPacketSize);
+
     for (let i = 0; i < this.shuffleOrder.length; i += 1) {
       if (this.shuffleOrder[i] === 'left') {
         this.cards.push(leftPacket[0]);
@@ -65,10 +68,11 @@ class Deck {
   }
 
   /**
-   * Cycle through the deck of cards and deal
+   * Cycle through the deck of cards and deal to each player round-robin
    */
   Deal(players) {
-    const totalCards = this.deckSize;
+    const totalCards = this.getDeckSize();
+
     for (let i = 0; i < totalCards; i += 1) {
       const currentPlayer = players[i % players.length];
       currentPlayer.AddToHand(this.cards[0]);
@@ -77,17 +81,18 @@ class Deck {
   }
 
   /**
-   * Display deck contents using symbolic represenation of cards
+   * Display deck contents using icons
    */
   ShowContents() {
     console.log(`${this.cards.map(e => `${e.icon}`).join(', ')}\n`);
   }
 
   /**
-   * Set shuffleOrder based on numCards passed in
+   * Set shuffleOrder based on numCards passed
    */
   SetShuffleOrder(numCards) {
     this.shuffleOrder = [];
+
     for (let i = 0; i < numCards; i += 1) {
       const packet = Math.random() >= 0.5 ? 'left' : 'right';
       this.shuffleOrder.push(packet);

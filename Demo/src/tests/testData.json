@@ -2,6 +2,7 @@
     "expectedSuits":["Diamonds", "Hearts", "Spades", "Clubs"],
     "expectedFaceValues":["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"],
     "numPlayers": 4,
+    "numCards": 52,
     "sets":[
         {   
             "name":"PlayingCard",
@@ -12,10 +13,6 @@
                 "MapSuit":"\u2660",
                 "MapValue":"A"
             }
-        },
-        {
-            "name":"Deck",
-            "model":""
         }
     ]
 }
