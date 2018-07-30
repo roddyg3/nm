@@ -89,13 +89,13 @@ describe('Deck Unit Tests', () => {
       testDeck.Create();
     });
     // assumes deckSize > 1 and probability of shuffling having no effect is low
-    test('Changes card order', () => {
+    test('Card order is changed (shuffles)', () => {
       const originalOrder = testDeck.cards.slice(0, testDeck.cards.length);
       testDeck.RiffleShuffle();
       expect(testDeck.cards).not.toEqual(originalOrder);
     });
 
-    test('Is \'random\'', () => {
+    test('Order of two shuffles doesn\'t match (is \'random\')', () => {
       function getRiffleShuffleResults() {
         testDeck.RiffleShuffle();
         return testDeck.shuffleOrder.slice(0, testDeck.shuffleOrder.length);
@@ -103,7 +103,7 @@ describe('Deck Unit Tests', () => {
       expect(getRiffleShuffleResults()).not.toEqual(getRiffleShuffleResults());
     });
 
-    test('Sets shuffleOrder', () => {
+    test('Sets shuffleOrder for each card in the deck', () => {
       expect(testDeck.shuffleOrder.length).toEqual(0);
       testDeck.RiffleShuffle();
       expect(testDeck.shuffleOrder.length).toEqual(testDeck.cards.length);

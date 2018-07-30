@@ -50,21 +50,20 @@ class PlayingCardClient {
   }
 
   CheckForInvalidPlayers() {
+    let isInvalid = true;
     const players = parseInt(this.numPlayers, 10);
 
-    if (players > 0 && players < this.playingDeck.getDeckSize()) {
-      return false;
-    }
-
-    if (this.numPlayers < 1) {
+    if (players > 0 && players <= this.playingDeck.getDeckSize()) {
+      isInvalid = false;
+    } if (this.numPlayers < 1) {
       console.error('ERROR: Game requires at least one player!');
     } else if (this.numPlayers > this.playingDeck.getDeckSize()) {
-      console.error(`ERROR: There are ${this.numPlayers} players but only ${this.playingDeck.cards.length} cards`);
+      console.error(`ERROR: There are ${this.numPlayers} players but only ${this.playingDeck.cards.length} cards.`);
     } else if (Number.isNaN(parseInt(this.numPlayers, 10))) {
-      console.error('ERROR: Invalid value for number of players');
+      console.error('ERROR: Invalid value for number of players.');
     }
 
-    return true;
+    return isInvalid;
   }
 
   ShowPlayersHands() {

@@ -115,23 +115,33 @@ describe('PlayingCardClient Unit Tests', () => {
       console.error = jest.fn();
     });
 
-    test('Returns an error if players > number of cards', () => {
+    test('Returns false if player number is valid', () => {
+      readlineSync.questionInt = jest.fn().mockReturnValue(testData.numPlayers);
+      cardClient.GetPlayerInput();
+      const invalid = cardClient.GetPlayerInput();
+      expect(invalid).toBeFalsy();
+    });
+
+    test('Returns true and an error if players > number of cards', () => {
       cardClient.SetUpDeck();
       readlineSync.questionInt = jest.fn().mockReturnValue(cardClient.playingDeck.length + 1);
       cardClient.GetPlayerInput();
-      cardClient.CheckForInvalidPlayers();
-      expect(console.error).toHaveBeenLastCalledWith('ERROR: Invalid value for number of players');
+      const invalid = cardClient.CheckForInvalidPlayers();
+      expect(console.error).toHaveBeenLastCalledWith('ERROR: Invalid value for number of players.');
+      expect(invalid).toBeTruthy();
     });
 
-    test('Returns an error if players < 1', () => {
-      cardClient.CheckForInvalidPlayers();
+    test('Returns true and an error if players < 1', () => {
+      const invalid = cardClient.CheckForInvalidPlayers();
       expect(console.error).toHaveBeenCalledWith('ERROR: Game requires at least one player!');
+      expect(invalid).toBeTruthy();
     });
 
-    test('Returns an error if player input is non-integer', () => {
+    test('Returns true and an error if player input is non-integer', () => {
       cardClient.numPlayers = 'Five';
-      cardClient.CheckForInvalidPlayers();
-      expect(console.error).toHaveBeenCalledWith('ERROR: Invalid value for number of players');
+      const invalid = cardClient.CheckForInvalidPlayers();
+      expect(console.error).toHaveBeenCalledWith('ERROR: Invalid value for number of players.');
+      expect(invalid).toBeTruthy();
     });
   });
 
